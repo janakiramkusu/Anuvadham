@@ -1,2 +1,1 @@
-# Anuvadham
-The Realtime Translator
+# Realtime-Translation
