@@ -26,7 +26,7 @@ const TranslationPage = () => {
   const allAudioBlobs = [];
   const [audioBlob, setAudioBlob] = useState(null);
   const mediaRecorderRef = useRef(null);
-  const textRef = useRef(""); // Stores full translated text
+  const textRef = useRef("");
   const audioChunksRef = useRef([]);
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
@@ -84,13 +84,11 @@ const mergeAudioBlobs = async (audioBlobs) => {
     offset += buffer.length;
   });
 
-  // Convert merged buffer to WAV Blob
   const mergedBlob = await audioBufferToWavBlob(mergedBuffer);
   mergedAudioRef.current = mergedBlob; // 🔁 Store in global ref
   console.log("✅ Merged audio stored in mergedAudioRef:", mergedBlob);
 };
 
-// Exported helper to convert AudioBuffer to WAV Blob
 const audioBufferToWavBlob = (buffer) => {
   return new Promise(resolve => {
     const numOfChan = buffer.numberOfChannels;
@@ -178,20 +176,20 @@ const audioBufferToWavBlob = (buffer) => {
   
     const drawWaveform = () => {
       requestAnimationFrame(drawWaveform);
-      analyser.getByteFrequencyData(dataArray); // Use frequency data instead
+      analyser.getByteFrequencyData(dataArray); 
       
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.fillStyle = "white";
       canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
     
       const gradient = canvasCtx.createLinearGradient(0, 0, canvas.width, 0);
-      gradient.addColorStop(0, "#007bff"); // Light blue
-      gradient.addColorStop(0.5, "rgba(12, 105, 198, 0.5)"); // White for a soft transition
-      gradient.addColorStop(1, "blue"); // Royal blue
+      gradient.addColorStop(0, "#007bff"); 
+      gradient.addColorStop(0.5, "rgba(12, 105, 198, 0.5)"); 
+      gradient.addColorStop(1, "blue"); 
       
       canvasCtx.strokeStyle = gradient;
       canvasCtx.shadowBlur = 15;
-      canvasCtx.shadowColor = "rgba(34, 102, 170, 0.5)"; // Soft blue glow
+      canvasCtx.shadowColor = "rgba(34, 102, 170, 0.5)"; 
       canvasCtx.lineWidth = 3; 
       
       canvasCtx.beginPath();
@@ -200,8 +198,8 @@ const audioBufferToWavBlob = (buffer) => {
       let x = 0;
     
       for (let i = 0; i < bufferLength; i++) {
-        let v = dataArray[i] / 255.0; // Normalize (0 to 1)
-        let y = (v * canvas.height) / 2; // Scale for height
+        let v = dataArray[i] / 255.0; 
+        let y = (v * canvas.height) / 2;
         
         let centerY = canvas.height / 2;
     
@@ -210,8 +208,6 @@ const audioBufferToWavBlob = (buffer) => {
         } else {
           canvasCtx.lineTo(x, centerY - y);
         }
-    
-        // Draw the mirrored waveform
         canvasCtx.lineTo(x, centerY + y);
     
         x += sliceWidth;
@@ -236,7 +232,7 @@ const handleSendText = async () => {
     setLoading(true);
 
     try {
-        // 🌍 Step 1: Detect Language
+        //  Step 1: Detect Language
         const detectOptions = {
             method: "POST",
             url: "https://google-translator9.p.rapidapi.com/v2/detect",
@@ -261,13 +257,13 @@ const handleSendText = async () => {
 
         console.log("✅ Detected Language:", detectedLang);
 
-        // 🛠 Step 2: Determine Translation Target
+        //  Step 2: Determine Translation Target
         let sourceLang = detectedLang;
         let targetLang = detectedLang === settings.language1 ? settings.language2 : settings.language1;
 
         console.log(`🌐 Translating from ${sourceLang} to ${targetLang}`);
 
-        // 🚀 Step 3: Translate Text
+        //  Step 3: Translate Text
         const translateText = async (text, sourceLang, targetLang) => {
           try {
               const translateOptions = {
@@ -330,7 +326,7 @@ const handleSendText = async () => {
       console.log("🎧 Converting to Speech...");
       const ttsResponse = await axios.request(ttsOptions);
       
-      // 🎵 Step 5: Convert and Play Audio
+      // Step 5: Convert and Play Audio
       const base64ToArrayBuffer = (base64) => {
         const binaryString = atob(base64); // Decode Base64
         const len = binaryString.length;
@@ -354,7 +350,7 @@ const handleSendText = async () => {
       const audio = new Audio(audioUrl);
       audio.play();
       setLoading(false);
-      console.log(ttsResponse); // Debugging
+      console.log(ttsResponse); 
       console.log("Translation Audio Length : ",ttsResponse.data.audioContent.length);
             
     } catch (error) {
@@ -404,7 +400,7 @@ const handleSpeechInput = async () => {
           console.log("🎵 Audio converted to Base64:", audioBase64.slice(0, 50) + "...");
 
           const transcript = await transcribeAudio(audioBase64);
-          appendToMergedText(transcript, "original"); // Append original text to merged text
+          appendToMergedText(transcript, "original"); 
           console.log("merged text in transcribe : ",mergedText)
           setTranslatedText(transcript);
           setLiveCaptions(transcript);
@@ -426,7 +422,7 @@ const handleSpeechInput = async () => {
           }
 
           console.log("🔤 Translated Text:", translatedText);
-          appendToMergedText(translatedText, "translated"); // Append translated text to merged text
+          appendToMergedText(translatedText, "translated"); 
           console.log("merged text in translate : ",mergedText)
           setTranslatedText(translatedText);
           setLiveCaptions(translatedText);
@@ -598,12 +594,10 @@ const handleExit = async () => {
     alert("Failed to save conversation.");
   }
 
-  // 🚀 Redirect
   navigate("/home");
 }
 
 const handleDownloadAll = async () => {
-  // 🔉 Download Merged Audio
   if (mergedAudioRef.current) {
     console.log("🔹 Merged Audio Blob:", mergedAudioRef.current.size, "bytes");
     downloadBlob(mergedAudioRef.current, "conversation.wav");
@@ -611,7 +605,7 @@ const handleDownloadAll = async () => {
     console.log("⚠️ No merged audio available to download.");
   }
 
-  // 📝 Download Merged Text
+
   if (mergedText.current && mergedText.current.trim() !== "") {
     const textBlob = new Blob([mergedText.current], { type: 'text/plain' });
     console.log("🔹 Merged Text Blob:", textBlob.size, "bytes");
@@ -647,7 +641,7 @@ const handleDownloadAll = async () => {
       </div>
   
       <div className="translation-container">
-  {/* ========== Box 1: Text Input (Both Users Choose Text) ========== */}
+  {/* Box 1: Text Input (Both Users Choose Text) */}
   {settings?.inputMethod1 === "text" && settings?.inputMethod2 === "text" && (
     <div className="box text-box">
       <h2>Text Input</h2>
@@ -670,7 +664,7 @@ const handleDownloadAll = async () => {
     </div>
   )}
 
-  {/* ========== Box 2: Voice Input (Both Users Choose Voice) ========== */}
+  {/* Box 2: Voice Input (Both Users Choose Voice) */}
   {settings?.inputMethod1 === "voice" && settings?.inputMethod2 === "voice" && (
     <div className="box voice-box">
     <h2>Voice</h2>
@@ -709,7 +703,7 @@ const handleDownloadAll = async () => {
 
   )}
 
-  {/* ========== Box 3: Mixed Input (Either User Chooses Text or Voice) ========== */}
+  {/* Box 3: Mixed Input (Either User Chooses Text or Voice) */}
   {(settings?.inputMethod1 !== settings?.inputMethod2) && (
    <div className="mixed-box">
    <div className="box text-box">
@@ -786,7 +780,7 @@ const handleDownloadAll = async () => {
 
 
   
-      {/* ---------- Live Captions & Repeat Button ---------- */}
+      {/*  Live Captions & Repeat Button  */}
      <motion.div
   ref={liveCaptionsRef}
   className="live-captions"

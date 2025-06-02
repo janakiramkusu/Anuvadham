@@ -26,7 +26,6 @@ const ProfilePage = () => {
         setUser({ name, email });
 
         if (profilePic) {
-          // Do NOT prepend API_BASE_URL if it's already a full URL (Cloudinary)
           setProfilePic(`${profilePic.trim()}?t=${Date.now()}`);
         }
       } catch (error) {
@@ -54,7 +53,6 @@ const ProfilePage = () => {
         },
       });
 
-      // Directly use Cloudinary URL returned from backend
       setProfilePic(`${res.data.profilePic}?t=${Date.now()}`);
     } catch (err) {
       console.error('Error uploading profile picture:', err);

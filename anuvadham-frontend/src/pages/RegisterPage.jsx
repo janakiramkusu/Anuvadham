@@ -10,7 +10,6 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-  // All fields must be filled and passwords must match
   const isValid = name && email && password && confirmPassword && (password === confirmPassword);
 
   

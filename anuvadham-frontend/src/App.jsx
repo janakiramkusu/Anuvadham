@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -8,6 +7,7 @@ import TranslationFormPage from './pages/TranslationFormPage';
 import TranslationPage from './pages/TranslationPage';
 import ConversationHistory from './pages/ConversationHistory';
 import ProfilePage from './pages/ProfilePage';
+import './App.css'; 
 
 
 

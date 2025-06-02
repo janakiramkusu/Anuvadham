@@ -18,12 +18,10 @@ const ConversationHistory = () => {
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-  // Redirect if no token
   useEffect(() => {
     if (!token) navigate('/');
   }, [token, navigate]);
 
-  // Populate languages from languageMap
   useEffect(() => {
     const formattedLanguages = Array.from(languageMap.entries()).map(([code, name]) => ({
       value: code,
@@ -32,7 +30,6 @@ const ConversationHistory = () => {
     setLanguages(formattedLanguages);
   }, []);
 
-  // Fetch conversation history
   useEffect(() => {
     const fetchHistory = async () => {
       try {

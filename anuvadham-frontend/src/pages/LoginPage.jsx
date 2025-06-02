@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
 const LoginPage = () => {
-  const navigate = useNavigate();  // Use useNavigate instead of useHistory
+  const navigate = useNavigate();  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
-  const isValid = email && password; // Basic validation
+  const isValid = email && password;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
