@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle, FaInfoCircle, FaClock, FaUser, FaSignOutAlt, FaHome } from 'react-icons/fa';
+import logo from '../../images/AnuvadhamLogo.png';
 import "./Header.css";
 
 export default function Header() {
@@ -26,7 +27,7 @@ export default function Header() {
     <>
       <header className="header">
         <div className="logo">
-          <img src="https://github.com/kusujanakiram/Realtime-Translation/blob/main/anuvadham-frontend/images/AnuvadhamLogo.png?raw=true" alt="Logo" />
+          <img src={logo} alt="Logo" />
           <span>Anuvadham</span>
         </div>
 
