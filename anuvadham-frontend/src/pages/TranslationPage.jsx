@@ -4,6 +4,7 @@ import * as WaveSurfer from "wavesurfer.js";
 import { motion } from "framer-motion";
 import { FaArrowLeft, FaMicrophone, FaStop } from "react-icons/fa";
 import axios from "axios";
+import logo from '../../images/AnuvadhamLogo.png';
 import "./TranslationPage.css";
 import languageMap from "../languageMap";
 import languageNameMap from "../languageNameMap";
@@ -621,7 +622,7 @@ const handleDownloadAll = async () => {
     <div className="translation-page">
       <div className="header">
         <div className="logo">
-          <img src="images\AnuvadhamLogo.png" alt="Logo" />
+         <img src={logo} alt="Logo" />
           <span>Anuvadham</span>
         </div>
         <button className="exit-btn" onClick={() => setShowExit(!showExit)}>
