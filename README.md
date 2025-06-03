@@ -37,7 +37,7 @@ Anuvadham is a modern, minimalistic, and responsive real-time translation platfo
 
 ## 🧑‍💻 Pages & Functionality
 
-### `/` Home Page
+### `/ Home Page`
 - Recent conversations summary
 - Navigation links: Translate, History, Profile, Login, Register
 
@@ -68,5 +68,5 @@ Anuvadham is a modern, minimalistic, and responsive real-time translation platfo
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/anuvadham.git
+git clone https://github.com/janakiramkusu/Anuvadham.git
 cd anuvadham
