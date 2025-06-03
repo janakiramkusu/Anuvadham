@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
+import logo from '../../images/AnuvadhamLogo.png';
 import './TranslationFormPage.css';
 
 const TranslationFormPage = () => {
@@ -69,7 +70,7 @@ const TranslationFormPage = () => {
     <div className="translation-form-page">
       <header className="header">
         <div className="logo">
-          <img src="images\AnuvadhamLogo.png" alt="Logo" />
+          <img src={logo} alt="Logo" />
           <span>Anuvadham</span>
         </div></header>
       <main className="translation-form-container">
