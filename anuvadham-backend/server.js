@@ -15,7 +15,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use(cors({
-  origin: 'https://anuvadham-three.vercel.app',
+  origin: 'http://localhost:5174',
   credentials: true
 }));
 
@@ -40,12 +40,12 @@ const alternativeLanguages = ["hi-IN"];
 app.post("/api/speech-to-text", async (req, res) => {
   let { audioContent, languageCode, alternativeLanguageCodes } = req.body;
 
-  console.log("✅ Received Speech-to-Text Request:");
-  console.log("🎤 Language Code:", languageCode);
-  console.log("🌐 Alternative Languages:", alternativeLanguageCodes);
+  console.log("Received Speech-to-Text Request:");
+  console.log("Language Code:", languageCode);
+  console.log("Alternative Languages:", alternativeLanguageCodes);
 
   if (!audioContent) {
-    console.error("❌ No audio content received.");
+    console.error("No audio content received.");
     return res.status(400).json({ error: "Audio content is required" });
   }
 
@@ -66,7 +66,7 @@ app.post("/api/speech-to-text", async (req, res) => {
   try {
     const response = await axios.post(url, requestBody);
     if (!response.data.results || response.data.results.length === 0) {
-      console.error("❌ No transcription results.");
+      console.error("No transcription results.");
       return res.status(500).json({ error: "No transcription results found." });
     }
 
@@ -75,16 +75,16 @@ app.post("/api/speech-to-text", async (req, res) => {
       .join(" ") || "No transcription available";
 
     const detectedLanguage = response.data.results[0]?.languageCode || languageCode;
-    console.log("🌍 Detected Language:", detectedLanguage);
+    console.log("Detected Language:", detectedLanguage);
 
     res.json({ transcript, detectedLanguage });
   } catch (error) {
-    console.error("❌ Speech-to-Text Error:");
+    console.error("Speech-to-Text Error:");
     if (error.response) {
-      console.error("🚨 API Response Error Status:", error.response.status);
+      console.error(" API Response Error Status:", error.response.status);
       return res.status(500).json(error.response.data);
     } else {
-      console.error("⚠️ General Error:", error.message);
+      console.error("General Error:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }
@@ -95,7 +95,7 @@ app.post('/api/synthesize', async (req, res) => {
 
   if (!text) return res.status(400).json({ error: 'Text field is required' });
 
-  languageCode = languageCode || "en-IN";  // Default language code for TTS
+  languageCode = languageCode || "en-IN";  
 
   const url = `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${apiKey}`;
   const requestBody = {
@@ -112,11 +112,11 @@ app.post('/api/synthesize', async (req, res) => {
     const response = await axios.post(url, requestBody);
     res.json({ audioContent: response.data.audioContent });
   } catch (error) {
-    console.error("❌ Text-to-Speech Error:", error.response ? error.response.data : error.message);
+    console.error(" Text-to-Speech Error:", error.response ? error.response.data : error.message);
     res.status(500).send('Error generating speech');
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
