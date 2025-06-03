@@ -10,8 +10,8 @@ const TranslationFormPage = () => {
   const [conversationName, setConversationName] = useState('');
   const [language1, setLanguage1] = useState(null);
   const [language2, setLanguage2] = useState(null);
-  const [inputMethod1, setInputMethod1] = useState('text');
-  const [inputMethod2, setInputMethod2] = useState('text');
+  const [inputMethod1, setInputMethod1] = useState('voice');
+  const [inputMethod2, setInputMethod2] = useState('voice');
   const [languages, setLanguages] = useState([]);
 
   const api_key = import.meta.env.VITE_RAPIDAPI_KEY;
@@ -67,14 +67,11 @@ const TranslationFormPage = () => {
 
   return (
     <div className="translation-form-page">
-      {/* HEADER */}
       <header className="header">
         <div className="logo">
           <img src="images\AnuvadhamLogo.png" alt="Logo" />
           <span>Anuvadham</span>
         </div></header>
-
-      {/* MAIN FORM CONTENT */}
       <main className="translation-form-container">
         <div className="form-card">
           <h1 className="form-title">Setup Your Translation</h1>
