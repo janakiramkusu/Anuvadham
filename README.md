@@ -1,4 +1,5 @@
 # 🌐 Anuvadham - Real-Time Translation Web App
+**Live Demo**: [CLICK HERE](https://anuvadham-three.vercel.app/)
 
 Anuvadham is a modern, minimalistic, and responsive real-time translation platform designed to enable seamless multilingual communication using voice or text input. Built with a secure, scalable, and accessible architecture, Anuvadham is ideal for travelers, professionals, and users with speech limitations.
 
